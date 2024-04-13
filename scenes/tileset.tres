@@ -1,7 +1,16 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://daxdhh3eagdkw"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://daxdhh3eagdkw"]
 
 [ext_resource type="Texture2D" uid="uid://3o3g4jtpy8y7" path="res://images/outline.png" id="1_hii2t"]
+[ext_resource type="Texture2D" uid="uid://crco0lurusnbg" path="res://images/darkness.png" id="1_nesqj"]
 [ext_resource type="Texture2D" uid="uid://cumpd5ll1nycq" path="res://images/tileset.png" id="2_lod6f"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kyxnr"]
+texture = ExtResource("1_nesqj")
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/modulate = Color(1, 1, 1, 0.25098)
+0:0/0/z_index = 2
+0:0/0/custom_data_0 = "darkness"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xrise"]
 texture = ExtResource("1_hii2t")
@@ -35,4 +44,5 @@ custom_data_layer_1/name = "selectable"
 custom_data_layer_1/type = 1
 sources/2 = SubResource("TileSetAtlasSource_xrise")
 sources/7 = SubResource("TileSetAtlasSource_vuv3q")
+sources/0 = SubResource("TileSetAtlasSource_kyxnr")
 tile_proxies/coords_level = [[0, Vector2i(0, 0)], [7, Vector2i(0, 0)], [1, Vector2i(0, 0)], [7, Vector2i(1, 0)], [3, Vector2i(0, 0)], [7, Vector2i(2, 0)], [4, Vector2i(0, 0)], [7, Vector2i(3, 0)], [5, Vector2i(0, 0)], [7, Vector2i(4, 0)], [6, Vector2i(0, 0)], [7, Vector2i(5, 0)]]

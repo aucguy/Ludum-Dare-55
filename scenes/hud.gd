@@ -3,13 +3,16 @@ extends Node2D
 const constants = preload("res://constants.gd")
 
 @onready var current_mana = constants.maximum_mana
+@onready var turn_count = 0
 
+signal next_turn
 signal spawn_shooter
 
 func _ready():
 	sync_display()
 
 func sync_display():
+	$TurnCount.text = "Turns: " + str(turn_count)
 	$ManaLabel.text = str(current_mana) + " / " + str(constants.maximum_mana)
 
 func increment_mana(amount):
@@ -22,3 +25,6 @@ func increment_mana(amount):
 
 func _on_spawn_shooter_pressed():
 	spawn_shooter.emit()
+
+func _on_next_turn_pressed():
+	next_turn.emit()
