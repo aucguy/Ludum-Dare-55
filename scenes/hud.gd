@@ -9,6 +9,7 @@ signal next_turn
 signal spawn_archer
 signal spawn_mage
 signal spawn_defender
+signal spawn_elder
 
 func _ready():
 	sync_display()
@@ -36,3 +37,6 @@ func _on_spawn_mage_pressed():
 
 func _on_spawn_defender_pressed():
 	spawn_defender.emit()
+
+func _on_spawn_elder_pressed():
+	spawn_elder.emit()

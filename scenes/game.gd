@@ -44,10 +44,12 @@ func _on_hud_next_turn():
 		level.spread_dark()
 		last_dark_spread = turn_count
 	
+	$Hud.increment_mana(level.earned_mana())
+	
 	$Hud.sync_display()
 
 func spawn_spirit(type, cost):
-	if level.spawn_spirit("light", type, level.selected_tile, $Hud.turn_count):
+	if $Hud.current_mana >= cost and level.spawn_spirit("light", type, level.selected_tile, $Hud.turn_count):
 		$Hud.increment_mana(-cost)
 
 func _on_hud_spawn_archer():
@@ -58,3 +60,6 @@ func _on_hud_spawn_mage():
 
 func _on_hud_spawn_defender():
 	spawn_spirit("defender", constants.DEFENDER_COST)
+
+func _on_hud_spawn_elder():
+	spawn_spirit("elder", constants.ELDER_COST)

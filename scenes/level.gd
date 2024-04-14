@@ -70,7 +70,7 @@ func spawn_spirit(team, type, location, turn):
 		print('spirit scene not selected for level')
 		return
 	
-	if not can_spawn_at(team, location):
+	if not can_spawn_at(team, type, location):
 		return false
 	
 	var spirit = spirit_scene.instantiate()
@@ -98,7 +98,7 @@ func get_spirit_at(location):
 	else:
 		return null
 
-func can_spawn_at(team, tile):
+func can_spawn_at(team, type, tile):
 	if tile == null:
 		return false
 		
@@ -110,13 +110,17 @@ func can_spawn_at(team, tile):
 	if data == null:
 		return false
 		
-	var type = data.get_custom_data("type")
+	var tile_type = data.get_custom_data("type")
 	if team == "light":
-		if type != "tree-elder" and type != "tree-alive":
-			return false
+		if type == "elder":
+			if tile_type != "tree-elder":
+				return false
+		else:
+			if tile_type != "tree-alive":
+				return false
 	else:
 		assert(team == "dark")
-		if type != "tree-dead":
+		if tile_type != "tree-dead":
 			return false
 		
 	return true
@@ -175,3 +179,12 @@ func update_field_tiles():
 				if spirit.type == "defender":
 					for cell in spirit.tiles_in_range(tilemap, location, 2):
 						tilemap.set_cell(field_layer, cell, FIELD_SOURCE_ID, FIELD_ATLAS_LOC)
+
+func earned_mana():
+	var result = 0
+	var tilemap = get_tilemap()
+	for spirit_location in spirit_positions:
+		var spirit = spirit_positions[spirit_location]
+		if spirit.type == "elder" and spirit.team == "light":
+			result += 5
+	return result

@@ -52,7 +52,16 @@ theme_override_font_sizes/font_size = 24
 text = "Spawn Defender
 "
 
+[node name="SpawnElder" type="Button" parent="."]
+offset_left = 2.0
+offset_top = 221.0
+offset_right = 146.0
+offset_bottom = 263.0
+theme_override_font_sizes/font_size = 24
+text = "Spawn Elder"
+
 [connection signal="pressed" from="NextTurn" to="." method="_on_next_turn_pressed"]
 [connection signal="pressed" from="SpawnArcher" to="." method="_on_spawn_archer_pressed"]
 [connection signal="pressed" from="SpawnMage" to="." method="_on_spawn_mage_pressed"]
 [connection signal="pressed" from="SpawnDefender" to="." method="_on_spawn_defender_pressed"]
+[connection signal="pressed" from="SpawnElder" to="." method="_on_spawn_elder_pressed"]
