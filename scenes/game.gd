@@ -11,21 +11,26 @@ func load_level(level_no):
 	self.level_no = level_no
 	last_dark_spread = 0
 	$Hud.reset()
+	if level != null:
+		level.queue_free()
+		level = null
 	level = level_scene.instantiate()
 	level.init(level_no, $Hud.turn_count)
 	level.connect("spirit_attacked", func(spirit): spirit_attacked(spirit))
 	add_child(level)
 	process_mode = Node.PROCESS_MODE_INHERIT
+	$Music.play()
 
 func _process(delta):
+	var coeff = $Camera2D.zoom.y
 	if Input.is_action_pressed("left"):
-		$Camera2D.position.x -= delta * constants.MOVE_SPEED
+		$Camera2D.position.x -= $Camera2D.zoom.y * constants.MOVE_SPEED
 	if Input.is_action_pressed("right"):
-		$Camera2D.position.x += delta * constants.MOVE_SPEED
+		$Camera2D.position.x += $Camera2D.zoom.y * constants.MOVE_SPEED
 	if Input.is_action_pressed("up"):
-		$Camera2D.position.y -= delta * constants.MOVE_SPEED
+		$Camera2D.position.y -= $Camera2D.zoom.y * constants.MOVE_SPEED
 	if Input.is_action_pressed("down"):
-		$Camera2D.position.y += delta * constants.MOVE_SPEED
+		$Camera2D.position.y += $Camera2D.zoom.y * constants.MOVE_SPEED
 	if Input.is_action_pressed("zoom_in"):
 		$Camera2D.zoom.x += $Camera2D.zoom.y * delta * constants.ZOOM_SPEED
 		$Camera2D.zoom.y += $Camera2D.zoom.y * delta * constants.ZOOM_SPEED
@@ -100,8 +105,8 @@ func _on_hud_spawn_elder():
 func _on_hud_start_portal():
 	if $Hud.current_mana > constants.PORTAL_COST:
 		$Hud.increment_mana(-constants.PORTAL_COST)
-		if level != null:
-			level.queue_free()
-			level = null
-			load_level(level_no + 1)
-			$PortalSound.play()
+		load_level(level_no + 1)
+		$PortalSound.play()
+
+func _on_music_finished():
+	$Music.play()

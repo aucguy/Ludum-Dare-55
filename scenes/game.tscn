@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtqppdlpaxmbs"]
+[gd_scene load_steps=8 format=3 uid="uid://dtqppdlpaxmbs"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_0n11f"]
 [ext_resource type="PackedScene" uid="uid://x2uytue1ig0d" path="res://scenes/hud.tscn" id="1_7gk1a"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bjj1yren7p32l" path="res://sounds/attack.wav" id="4_1b3jc"]
 [ext_resource type="AudioStream" uid="uid://cou8nsrboj0r6" path="res://sounds/death.wav" id="5_o0nj0"]
 [ext_resource type="AudioStream" uid="uid://5otelpmcclvg" path="res://sounds/portal.wav" id="6_okehh"]
+[ext_resource type="AudioStream" uid="uid://cwjy6w5rwo6dl" path="res://sounds/music.mp3" id="7_nt38n"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_0n11f")
@@ -14,19 +15,22 @@ script = ExtResource("1_0n11f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_557k0")
 volume_db = 10.0
 
-[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1b3jc")
 volume_db = -10.0
 
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_o0nj0")
 
-[node name="PortalSound" type="AudioStreamPlayer2D" parent="."]
+[node name="PortalSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_okehh")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_nt38n")
 
 [connection signal="next_turn" from="Hud" to="." method="_on_hud_next_turn"]
 [connection signal="spawn_archer" from="Hud" to="." method="_on_hud_spawn_archer"]
@@ -34,3 +38,5 @@ stream = ExtResource("6_okehh")
 [connection signal="spawn_elder" from="Hud" to="." method="_on_hud_spawn_elder"]
 [connection signal="spawn_mage" from="Hud" to="." method="_on_hud_spawn_mage"]
 [connection signal="start_portal" from="Hud" to="." method="_on_hud_start_portal"]
+[connection signal="finished" from="SpawnSound" to="." method="_on_spawn_sound_finished"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

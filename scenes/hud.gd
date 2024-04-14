@@ -18,6 +18,9 @@ func _ready():
 func sync_display():
 	$TurnCount.text = str(turn_count)
 	$ManaLabel.text = "MANA:" + str(current_mana) + "/" + str(constants.MAXIMUM_MANA)
+	$ManaBar.amount = current_mana
+	$ManaBar.max_amount = constants.MAXIMUM_MANA
+	$ManaBar.queue_redraw()
 
 func increment_mana(amount):
 	current_mana += amount
