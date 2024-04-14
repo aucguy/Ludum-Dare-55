@@ -37,8 +37,8 @@ func _on_hud_next_turn():
 	$Hud.turn_count += 1
 	var turn_count = $Hud.turn_count
 	
-	level.attack()
-	level.spawn_enemies()
+	level.attack(turn_count)
+	level.spawn_enemies(turn_count)
 	
 	if turn_count >= last_dark_spread + constants.DARK_SPREAD_INTERVAL:
 		level.spread_dark()
@@ -46,7 +46,15 @@ func _on_hud_next_turn():
 	
 	$Hud.sync_display()
 
+func spawn_spirit(type, cost):
+	if level.spawn_spirit("light", type, level.selected_tile, $Hud.turn_count):
+		$Hud.increment_mana(-cost)
+
 func _on_hud_spawn_archer():
-	if level != null and level.selected_tile != null:
-		if level.spawn_spirit("light", "archer", level.selected_tile):
-			$Hud.increment_mana(-constants.SHOOTER_COST)
+	spawn_spirit("archer", constants.ARCHER_COST)
+
+func _on_hud_spawn_mage():
+	spawn_spirit("mage", constants.MAGE_COST)
+
+func _on_hud_spawn_defender():
+	spawn_spirit("defender", constants.DEFENDER_COST)

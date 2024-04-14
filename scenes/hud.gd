@@ -7,6 +7,8 @@ const constants = preload("res://constants.gd")
 
 signal next_turn
 signal spawn_archer
+signal spawn_mage
+signal spawn_defender
 
 func _ready():
 	sync_display()
@@ -28,3 +30,9 @@ func _on_spawn_archer_pressed():
 
 func _on_next_turn_pressed():
 	next_turn.emit()
+
+func _on_spawn_mage_pressed():
+	spawn_mage.emit()
+
+func _on_spawn_defender_pressed():
+	spawn_defender.emit()

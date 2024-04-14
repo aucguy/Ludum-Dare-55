@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfsjuslhpa88t" path="res://scenes/projectile.tscn" id="2_62u0n"]
 
 [node name="Spirit" type="Node2D"]
-z_index = 1
+z_index = 4
 script = ExtResource("1_envi1")
 projectile_scene = ExtResource("2_62u0n")
 

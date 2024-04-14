@@ -35,5 +35,24 @@ offset_bottom = 137.0
 theme_override_font_sizes/font_size = 24
 text = "Turn: 0"
 
+[node name="SpawnMage" type="Button" parent="."]
+offset_left = 2.0
+offset_top = 137.0
+offset_right = 186.0
+offset_bottom = 179.0
+theme_override_font_sizes/font_size = 24
+text = "Spawn Mage"
+
+[node name="SpawnDefender" type="Button" parent="."]
+offset_left = 2.0
+offset_top = 179.0
+offset_right = 138.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 24
+text = "Spawn Defender
+"
+
 [connection signal="pressed" from="NextTurn" to="." method="_on_next_turn_pressed"]
 [connection signal="pressed" from="SpawnArcher" to="." method="_on_spawn_archer_pressed"]
+[connection signal="pressed" from="SpawnMage" to="." method="_on_spawn_mage_pressed"]
+[connection signal="pressed" from="SpawnDefender" to="." method="_on_spawn_defender_pressed"]

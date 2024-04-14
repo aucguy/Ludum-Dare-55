@@ -5,6 +5,8 @@ extends Node2D
 const SPIRIT_SPAWN_OFFSET = Vector2(0.0, -4.0)
 const DARKNESS_SOURCE_ID = 0
 const DARKNESS_ATLAS_LOC = Vector2i(0, 0)
+const FIELD_SOURCE_ID = 1
+const FIELD_ATLAS_LOC = Vector2i(0, 0)
 const ELEMENTS_SOURCE_ID = 7
 const TREE_DEAD_ATLAS_LOC = Vector2i(5, 0)
 
@@ -14,6 +16,7 @@ var selected_tile = null
 var spirit_positions = {}
 var elements_layer = 0
 var darkness_layer = 0
+var field_layer = 0
 
 func init(level_no):
 	self.level_no = level_no
@@ -30,6 +33,9 @@ func _ready():
 	for layer_no in range(tilemap.get_layers_count()):
 		if tilemap.get_layer_name(layer_no) == "elements":
 			elements_layer = layer_no
+	
+	tilemap.add_layer(-1)
+	field_layer = tilemap.get_layers_count() - 1
 	
 	tilemap.add_layer(-1)
 	darkness_layer = tilemap.get_layers_count() - 1
@@ -59,7 +65,7 @@ func _process(delta):
 func get_tilemap():
 	return map.get_node("TileMap")
 
-func spawn_spirit(team, type, location):
+func spawn_spirit(team, type, location, turn):
 	if spirit_scene == null:
 		print('spirit scene not selected for level')
 		return
@@ -68,15 +74,19 @@ func spawn_spirit(team, type, location):
 		return false
 	
 	var spirit = spirit_scene.instantiate()
-	spirit.init(team, type, to_local(spirit_spawn_location(location)))
+	spirit.init(team, type, to_local(spirit_spawn_location(location)), turn)
 	spirit_positions[location] = spirit
 	spirit.connect("die", func(): despawn_spirit(location, spirit))
 	add_child(spirit)
+	
+	update_field_tiles()
+	
 	return true
 
 func despawn_spirit(location, spirit):
 	spirit_positions.erase(location)
 	spirit.queue_free()
+	update_field_tiles()
 
 func spirit_spawn_location(tile):
 	var tilemap = get_tilemap()
@@ -111,12 +121,12 @@ func can_spawn_at(team, tile):
 		
 	return true
 
-func attack():
+func attack(turn_count):
 	for location in spirit_positions:
 		var spirit = spirit_positions[location]
-		spirit.attack(self, location)
+		spirit.attack(self, location, turn_count)
 	
-func spawn_enemies():
+func spawn_enemies(turn):
 	var tilemap = get_tilemap()
 	var used_rect = tilemap.get_used_rect()
 	var new_darkness = []
@@ -125,7 +135,7 @@ func spawn_enemies():
 			var location = Vector2i(x, y)
 			var data = tilemap.get_cell_tile_data(elements_layer, location)
 			if data != null and data.get_custom_data("type") == "tree-dead":
-				spawn_spirit("dark", "archer", location)
+				spawn_spirit("dark", "archer", location, turn)
 
 func spread_dark():
 	var tilemap = get_tilemap()
@@ -148,3 +158,20 @@ func spread_dark():
 		var type = data.get_custom_data("type")
 		if type == "tree-alive" or type == "tree-elder":
 			tilemap.set_cell(elements_layer, cell, ELEMENTS_SOURCE_ID, TREE_DEAD_ATLAS_LOC)
+
+func update_field_tiles():
+	var tilemap = get_tilemap()
+	var used_rect = tilemap.get_used_rect()
+	for x in range(used_rect.position.x, used_rect.end.x):
+		for y in range(used_rect.position.y, used_rect.end.y):
+			var location = Vector2i(x, y)
+			tilemap.set_cell(field_layer, location, -1)
+
+	for x in range(used_rect.position.x, used_rect.end.x):
+		for y in range(used_rect.position.y, used_rect.end.y):
+			var location = Vector2i(x, y)
+			if location in spirit_positions:
+				var spirit = spirit_positions[location]
+				if spirit.type == "defender":
+					for cell in spirit.tiles_in_range(tilemap, location, 2):
+						tilemap.set_cell(field_layer, cell, FIELD_SOURCE_ID, FIELD_ATLAS_LOC)

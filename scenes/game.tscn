@@ -12,3 +12,5 @@ script = ExtResource("1_0n11f")
 
 [connection signal="next_turn" from="Hud" to="." method="_on_hud_next_turn"]
 [connection signal="spawn_archer" from="Hud" to="." method="_on_hud_spawn_archer"]
+[connection signal="spawn_defender" from="Hud" to="." method="_on_hud_spawn_defender"]
+[connection signal="spawn_mage" from="Hud" to="." method="_on_hud_spawn_mage"]
