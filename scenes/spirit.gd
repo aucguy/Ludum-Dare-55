@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var projectile_scene: PackedScene
+
 var constants = load("res://constants.gd")
 
 var team = "light"
@@ -55,6 +57,12 @@ func attack(level, location):
 		var target_spirit = level.get_spirit_at(target_location)
 		if target_spirit != null and target_spirit != self and target_spirit.team != team:
 			target_spirit.increment_health(-10)
+			var projectile = projectile_scene.instantiate()
+			projectile.init(modulate)
+			add_child(projectile)
+			var tween = get_tree().create_tween()
+			tween.tween_property(projectile, "global_position", target_spirit.global_position, 1)
+			tween.tween_callback(projectile.queue_free)
 			
 func tiles_in_range(tilemap, center, radius):
 	var tiles = [center]

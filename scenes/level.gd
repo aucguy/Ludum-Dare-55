@@ -42,10 +42,10 @@ func _ready():
 			if data != null and data.get_custom_data("type") == "void":
 				tilemap.set_cell(darkness_layer, location, DARKNESS_SOURCE_ID, DARKNESS_ATLAS_LOC)
 
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MouseButton.MOUSE_BUTTON_LEFT:
+func _process(delta):
+	if Input.is_action_just_pressed("select"):
 		var tilemap = get_tilemap()
-		var position = tilemap.to_local(event.position)
+		var position = tilemap.get_local_mouse_position()
 		position = tilemap.local_to_map(position)
 		var data = tilemap.get_cell_tile_data(elements_layer, position)
 		if data == null or not data.get_custom_data("selectable"):
@@ -53,7 +53,7 @@ func _input(event):
 		selected_tile = position
 		position = tilemap.map_to_local(position)
 		position = tilemap.to_global(position)
-		$Outline.position = self.to_local(position)
+		$Outline.position = to_local(position)
 		$Outline.visible = true
 
 func get_tilemap():

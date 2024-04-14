@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dra7e2wibbqd0"]
+[gd_scene load_steps=4 format=3 uid="uid://dra7e2wibbqd0"]
 
 [ext_resource type="Script" path="res://scenes/spirit.gd" id="1_envi1"]
 [ext_resource type="Texture2D" uid="uid://c1xw6t6fw08pr" path="res://images/spirit.png" id="1_vs7l0"]
+[ext_resource type="PackedScene" uid="uid://bfsjuslhpa88t" path="res://scenes/projectile.tscn" id="2_62u0n"]
 
 [node name="Spirit" type="Node2D"]
 z_index = 1
 script = ExtResource("1_envi1")
+projectile_scene = ExtResource("2_62u0n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)
