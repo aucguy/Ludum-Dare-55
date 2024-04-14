@@ -15,3 +15,4 @@ script = ExtResource("1_0n11f")
 [connection signal="spawn_defender" from="Hud" to="." method="_on_hud_spawn_defender"]
 [connection signal="spawn_elder" from="Hud" to="." method="_on_hud_spawn_elder"]
 [connection signal="spawn_mage" from="Hud" to="." method="_on_hud_spawn_mage"]
+[connection signal="start_portal" from="Hud" to="." method="_on_hud_start_portal"]

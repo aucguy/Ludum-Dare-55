@@ -51,7 +51,7 @@ func _draw():
 	
 func increment_health(amount):
 	health += amount
-	if health < 0:
+	if health <= 0:
 		health = 0
 		die.emit()
 	elif health > constants.MAXIMUM_HEALTH:
@@ -90,7 +90,7 @@ func attack_enemy(level, target_location):
 	if target_spirit == null:
 		return
 		
-	var damage = 10
+	var damage = constants.SPIRIT_DAMAGE
 	if in_friendly_field(level, target_location):
 		damage *= 0.5
 	target_spirit.increment_health(-damage)
@@ -127,6 +127,6 @@ func filter_valid_targets(level, candidates):
 func in_friendly_field(level, location):
 	for cell in tiles_in_range(level.get_tilemap(), location, 2):
 		var spirit = level.get_spirit_at(cell)
-		if spirit != null and spirit.team == team:
+		if spirit != null and spirit.team == team and spirit.type == "defender":
 			return true
 	return false

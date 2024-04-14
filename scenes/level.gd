@@ -2,6 +2,8 @@ extends Node2D
 
 @export var spirit_scene: PackedScene
 
+var constants = load("res://constants.gd")
+
 const SPIRIT_SPAWN_OFFSET = Vector2(0.0, -4.0)
 const DARKNESS_SOURCE_ID = 0
 const DARKNESS_ATLAS_LOC = Vector2i(0, 0)
@@ -14,14 +16,13 @@ var level_no
 var map = null
 var selected_tile = null
 var spirit_positions = {}
+var spirits_to_delete = []
 var elements_layer = 0
 var darkness_layer = 0
 var field_layer = 0
 
-func init(level_no):
+func init(level_no, turn_count):
 	self.level_no = level_no
-	
-func _ready():
 	var map_scene = load("res://maps/map-" + str(level_no) + ".tscn")
 	if map_scene == null:
 		print("can not load level " + str(level_no))
@@ -45,8 +46,12 @@ func _ready():
 		for y in range(used_rect.position.y, used_rect.end.y):
 			var location = Vector2i(x, y)
 			var data = tilemap.get_cell_tile_data(elements_layer, location)
-			if data != null and data.get_custom_data("type") == "void":
-				tilemap.set_cell(darkness_layer, location, DARKNESS_SOURCE_ID, DARKNESS_ATLAS_LOC)
+			if data != null:
+				var type = data.get_custom_data("type")
+				if type == "void":
+					tilemap.set_cell(darkness_layer, location, DARKNESS_SOURCE_ID, DARKNESS_ATLAS_LOC)
+				if type == "tree-elder" or type == "tree-alive":
+					spawn_spirit("dark", "archer", location, turn_count, true)
 
 func _process(delta):
 	if Input.is_action_just_pressed("select"):
@@ -62,15 +67,24 @@ func _process(delta):
 		$Outline.position = to_local(position)
 		$Outline.visible = true
 
+func before_turn():
+	spirits_to_delete = []
+
+func after_turn():
+	for spirit in spirits_to_delete:
+		spirit_positions.erase(spirit)
+	
+	spirits_to_delete = []
+
 func get_tilemap():
 	return map.get_node("TileMap")
 
-func spawn_spirit(team, type, location, turn):
+func spawn_spirit(team, type, location, turn, initial_spawn=false):
 	if spirit_scene == null:
 		print('spirit scene not selected for level')
 		return
 	
-	if not can_spawn_at(team, type, location):
+	if not can_spawn_at(team, type, location, initial_spawn):
 		return false
 	
 	var spirit = spirit_scene.instantiate()
@@ -84,7 +98,7 @@ func spawn_spirit(team, type, location, turn):
 	return true
 
 func despawn_spirit(location, spirit):
-	spirit_positions.erase(location)
+	spirits_to_delete.append(location)
 	spirit.queue_free()
 	update_field_tiles()
 
@@ -98,7 +112,7 @@ func get_spirit_at(location):
 	else:
 		return null
 
-func can_spawn_at(team, type, tile):
+func can_spawn_at(team, type, tile, initial_spawn):
 	if tile == null:
 		return false
 		
@@ -116,11 +130,11 @@ func can_spawn_at(team, type, tile):
 			if tile_type != "tree-elder":
 				return false
 		else:
-			if tile_type != "tree-alive":
+			if tile_type != "tree-alive" and tile_type != "portal":
 				return false
 	else:
 		assert(team == "dark")
-		if tile_type != "tree-dead":
+		if tile_type != "tree-dead" and not initial_spawn:
 			return false
 		
 	return true
@@ -188,3 +202,15 @@ func earned_mana():
 		if spirit.type == "elder" and spirit.team == "light":
 			result += 5
 	return result
+
+func hurt_in_darkness():
+	var tilemap = get_tilemap()
+	var used_rect = tilemap.get_used_rect()
+	for x in range(used_rect.position.x, used_rect.end.x):
+		for y in range(used_rect.position.y, used_rect.end.y):
+			var location = Vector2i(x, y)
+			var data = tilemap.get_cell_tile_data(darkness_layer, location)
+			if data != null and data.get_custom_data("type") == "darkness" and location in spirit_positions:
+				var spirit = spirit_positions[location]
+				if spirit.team == "light":
+					spirit.increment_health(-constants.DARKNESS_DAMAGE)

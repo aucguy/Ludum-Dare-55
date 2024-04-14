@@ -8,7 +8,7 @@ var last_dark_spread = 0
 
 func _ready():
 	level = level_scene.instantiate()
-	level.init(1)
+	level.init(1, $Hud.turn_count)
 	add_child(level)
 
 func _process(delta):
@@ -37,16 +37,18 @@ func _on_hud_next_turn():
 	$Hud.turn_count += 1
 	var turn_count = $Hud.turn_count
 	
+	level.before_turn()
 	level.attack(turn_count)
 	level.spawn_enemies(turn_count)
+	level.hurt_in_darkness()
 	
 	if turn_count >= last_dark_spread + constants.DARK_SPREAD_INTERVAL:
 		level.spread_dark()
 		last_dark_spread = turn_count
 	
 	$Hud.increment_mana(level.earned_mana())
-	
 	$Hud.sync_display()
+	level.after_turn()
 
 func spawn_spirit(type, cost):
 	if $Hud.current_mana >= cost and level.spawn_spirit("light", type, level.selected_tile, $Hud.turn_count):
@@ -63,3 +65,8 @@ func _on_hud_spawn_defender():
 
 func _on_hud_spawn_elder():
 	spawn_spirit("elder", constants.ELDER_COST)
+
+func _on_hud_start_portal():
+	if $Hud.current_mana > constants.PORTAL_COST:
+		$Hud.increment_mana(-constants.PORTAL_COST)
+		print('next level...')
