@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://jeb1dibxqiqi"]
+
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_1qwwl"]
+[ext_resource type="Theme" uid="uid://6nv02hjlmj5i" path="res://scenes/theme.tres" id="1_u7vn6"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_1qwwl")
+
+[node name="PlayButton" type="Button" parent="."]
+offset_left = 440.0
+offset_top = 160.0
+offset_right = 700.0
+offset_bottom = 228.0
+theme = ExtResource("1_u7vn6")
+theme_override_font_sizes/font_size = 64
+text = "PLAY"
+
+[node name="LevelSelectButton" type="Button" parent="."]
+offset_left = 192.0
+offset_top = 296.0
+offset_right = 964.0
+offset_bottom = 364.0
+theme = ExtResource("1_u7vn6")
+theme_override_font_sizes/font_size = 64
+text = "SELECT LEVEL"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="LevelSelectButton" to="." method="_on_level_select_button_pressed"]

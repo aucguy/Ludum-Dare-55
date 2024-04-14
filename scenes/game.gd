@@ -7,9 +7,6 @@ var level = null
 var last_dark_spread = 0
 var level_no = 0
 
-func _ready():
-	load_level(3)
-
 func load_level(level_no):
 	self.level_no = level_no
 	last_dark_spread = 0
@@ -17,6 +14,7 @@ func load_level(level_no):
 	level = level_scene.instantiate()
 	level.init(level_no, $Hud.turn_count)
 	add_child(level)
+	process_mode = Node.PROCESS_MODE_INHERIT
 
 func _process(delta):
 	if Input.is_action_pressed("left"):
@@ -39,6 +37,22 @@ func _process(delta):
 		if $Camera2D.zoom.x < constants.ZOOM_MIN:
 			$Camera2D.zoom.x = constants.ZOOM_MIN
 			$Camera2D.zoom.y = constants.ZOOM_MIN
+
+func disable():
+	hide()
+	$Camera2D.enabled = false
+	$Hud.hide()
+	
+func enable():
+	show()
+	$Camera2D.enabled = true
+	$Hud.show()
+	
+func pause():
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
+func unpause():
+	process_mode = Node.PROCESS_MODE_INHERIT
 
 func _on_hud_next_turn():
 	$Hud.turn_count += 1
