@@ -79,7 +79,8 @@ func attack(level, location, turn_count):
 			attack_mage(level, targets)
 
 func attack_archer(level, targets):
-	var target_location = attack_enemy(level, targets.pick_random())
+	if targets.size() != 0:
+		attack_enemy(level, targets.pick_random())
 
 func attack_mage(level, targets):
 	for target in targets:
@@ -91,6 +92,8 @@ func attack_enemy(level, target_location):
 		return
 		
 	var damage = constants.SPIRIT_DAMAGE
+	if target_spirit.team == "dark":
+		damage *= constants.PLAYER_BONUS
 	if in_friendly_field(level, target_location):
 		damage *= 0.5
 	target_spirit.increment_health(-damage)

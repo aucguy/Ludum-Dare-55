@@ -26,6 +26,11 @@ func increment_mana(amount):
 	elif current_mana > constants.MAXIMUM_MANA:
 		current_mana = constants.MAXIMUM_MANA
 	sync_display()
+	
+func reset():
+	current_mana = constants.INITIAL_MANA
+	turn_count = 0
+	sync_display()
 
 func _on_spawn_archer_pressed():
 	spawn_archer.emit()

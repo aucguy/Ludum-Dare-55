@@ -2,7 +2,7 @@ extends Node
 
 const MAXIMUM_MANA = 300
 const INITIAL_MANA = 100
-const ARCHER_COST = 10
+const ARCHER_COST = 5
 const ARCHER_ATTACK_INTERVAL = 2
 const MAGE_COST = 20
 const MAGE_ATTACK_INTERVAL = 3
@@ -16,4 +16,5 @@ const ZOOM_MAX = 2
 const ZOOM_MIN = 0.25
 const PORTAL_COST = 150
 const DARKNESS_DAMAGE = 25
-const SPIRIT_DAMAGE = 25
+const SPIRIT_DAMAGE = 20
+const PLAYER_BONUS = 1.25

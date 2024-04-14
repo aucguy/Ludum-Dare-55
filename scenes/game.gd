@@ -5,10 +5,17 @@ var level_scene = preload("res://scenes/level.tscn")
 var level = null
 
 var last_dark_spread = 0
+var level_no = 0
 
 func _ready():
+	load_level(1)
+
+func load_level(level_no):
+	self.level_no = level_no
+	last_dark_spread = 0
+	$Hud.reset()
 	level = level_scene.instantiate()
-	level.init(1, $Hud.turn_count)
+	level.init(level_no, $Hud.turn_count)
 	add_child(level)
 
 func _process(delta):
@@ -69,4 +76,7 @@ func _on_hud_spawn_elder():
 func _on_hud_start_portal():
 	if $Hud.current_mana > constants.PORTAL_COST:
 		$Hud.increment_mana(-constants.PORTAL_COST)
-		print('next level...')
+		if level != null:
+			level.queue_free()
+			level = null
+			load_level(level_no + 1)
