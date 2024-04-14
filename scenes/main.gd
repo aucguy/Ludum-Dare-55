@@ -4,7 +4,6 @@ var current_scene = "main_menu"
 
 func _ready():
 	change_scene("main_menu")
-	print($Game.visible)
 	
 func _process(delta):
 	if $Game.visible and Input.is_action_just_pressed("pause_menu"):

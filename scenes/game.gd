@@ -20,6 +20,15 @@ func load_level(level_no):
 	add_child(level)
 	process_mode = Node.PROCESS_MODE_INHERIT
 	$Music.play()
+	var map_data = level.map.get_node("MapData")
+	if map_data != null:
+		$Camera2D.position = map_data.initial_position
+		$Camera2D.zoom.x = map_data.initial_zoom
+		$Camera2D.zoom.y = map_data.initial_zoom
+	else:
+		$Camera2D.position = Vector2i.ZERO
+		$Camera2D.zoom.x = 0
+		$Camera2D.zoom.y = 0
 
 func _process(delta):
 	var coeff = $Camera2D.zoom.y
@@ -43,6 +52,8 @@ func _process(delta):
 		if $Camera2D.zoom.x < constants.ZOOM_MIN:
 			$Camera2D.zoom.x = constants.ZOOM_MIN
 			$Camera2D.zoom.y = constants.ZOOM_MIN
+	if Input.is_action_just_pressed("print_camera"):
+		print("camera data: x = " + str($Camera2D.position.x) + ", y = " + str($Camera2D.position.y) + ", zoom = " + str($Camera2D.zoom.x))
 
 func disable():
 	hide()
