@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 const constants = preload("res://constants.gd")
 
