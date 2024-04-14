@@ -6,8 +6,9 @@ var constants = load("res://constants.gd")
 
 var team = "light"
 var type = "archer"
-var health = constants.MAXIMUM_HEALTH
-var last_attack = 0
+var max_health = 0
+var health = 0
+var last_attack = -100
 
 const HEALTH_LEFT = 8 * -4
 const HEALTH_TOP = 8 * -8
@@ -28,35 +29,42 @@ func init(team, type, position, turn):
 	if type == "archer":
 		$Sprite2D.modulate.g = 0.25
 		$Sprite2D.modulate.b = 0.25
+		max_health = constants.ARCHER_HEALTH
 	elif type == "mage":
 		$Sprite2D.modulate.r = 0.25
 		$Sprite2D.modulate.b = 0.25
+		max_health = constants.MAGE_HEALTH
 	elif type == "defender":
 		$Sprite2D.modulate.r = 0.25
 		$Sprite2D.modulate.g = 0.25
+		max_health = constants.MAGE_HEALTH
+	elif type == "elder":
+		max_health = constants.MAGE_HEALTH
 		
 	if team == "dark":
 		$Sprite2D.modulate.r *= 0.75
 		$Sprite2D.modulate.g *= 0.75
 		$Sprite2D.modulate.b *= 0.75
 	
-	queue_redraw()
+	health = max_health
+	$Bar.max_amount = max_health
+	$Bar.set_amount(health)
 
-func _draw():
-	var width = HEALTH_WIDTH * health / constants.MAXIMUM_HEALTH
-	var rect = Rect2(HEALTH_LEFT, HEALTH_TOP, width, HEALTH_HEIGHT)
-	draw_rect(rect, HEALTH_FILL_COLOR, true)
-	rect = Rect2(HEALTH_LEFT, HEALTH_TOP, HEALTH_WIDTH, HEALTH_HEIGHT)
-	draw_rect(rect, HEALTH_OUTLINE_COLOR, false, HEALTH_OUTLINE_WIDTH)
+#func _draw():
+#	var width = HEALTH_WIDTH * health / max_health
+#	var rect = Rect2(HEALTH_LEFT, HEALTH_TOP, width, HEALTH_HEIGHT)
+#	draw_rect(rect, HEALTH_FILL_COLOR, true)
+#	rect = Rect2(HEALTH_LEFT, HEALTH_TOP, HEALTH_WIDTH, HEALTH_HEIGHT)
+#	draw_rect(rect, HEALTH_OUTLINE_COLOR, false, HEALTH_OUTLINE_WIDTH)
 	
 func increment_health(amount):
 	health += amount
 	if health <= 0:
 		health = 0
 		die.emit()
-	elif health > constants.MAXIMUM_HEALTH:
-		health = constants.MAXIMUM_HEALTH
-	queue_redraw()
+	elif health > max_health:
+		health = max_health
+	$Bar.set_amount(health)
 
 func attack(level, location, turn_count):
 	var attack_interval = 1

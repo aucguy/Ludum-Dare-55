@@ -16,8 +16,8 @@ func _ready():
 	sync_display()
 
 func sync_display():
-	$TurnCount.text = "Turns: " + str(turn_count)
-	$ManaLabel.text = "Mana: " + str(current_mana) + " / " + str(constants.MAXIMUM_MANA)
+	$TurnCount.text = str(turn_count)
+	$ManaLabel.text = "MANA:" + str(current_mana) + "/" + str(constants.MAXIMUM_MANA)
 
 func increment_mana(amount):
 	current_mana += amount
@@ -47,5 +47,5 @@ func _on_spawn_defender_pressed():
 func _on_spawn_elder_pressed():
 	spawn_elder.emit()
 
-func _on_button_pressed():
+func _on_portal_button_pressed():
 	start_portal.emit()

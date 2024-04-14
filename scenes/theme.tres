@@ -1,0 +1,46 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://6nv02hjlmj5i"]
+
+[ext_resource type="FontFile" uid="uid://dnhrrbiwe7lvm" path="res://images/font.png" id="1_rvqfc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le1bt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dx084"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kycrl"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bytm"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phnw7"]
+bg_color = Color(0.34902, 0.34902, 0.34902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[resource]
+default_font = ExtResource("1_rvqfc")
+default_font_size = 32
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_rvqfc")
+Button/styles/disabled = SubResource("StyleBoxFlat_le1bt")
+Button/styles/focus = SubResource("StyleBoxFlat_dx084")
+Button/styles/hover = SubResource("StyleBoxFlat_kycrl")
+Button/styles/normal = SubResource("StyleBoxFlat_1bytm")
+Button/styles/pressed = SubResource("StyleBoxFlat_phnw7")
+Label/fonts/font = ExtResource("1_rvqfc")

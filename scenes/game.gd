@@ -8,7 +8,7 @@ var last_dark_spread = 0
 var level_no = 0
 
 func _ready():
-	load_level(1)
+	load_level(3)
 
 func load_level(level_no):
 	self.level_no = level_no
