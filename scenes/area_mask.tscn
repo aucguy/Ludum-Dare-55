@@ -1,0 +1,118 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsxsjgvtaj53j"]
+
+[ext_resource type="Texture2D" uid="uid://cp2ck1mfxti6d" path="res://images/area_mask.png" id="1_trvcj"]
+
+[node name="AreaMask" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D12" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-128, 0)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D13" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-192, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D14" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-256, 0)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D15" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-64, -96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D16" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-192, -96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(64, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-64, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(0, 192)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-128, 192)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(192, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D8" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(128, 0)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D9" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(256, 0)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D10" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(192, -96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D11" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(64, -96)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D17" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(-128, -192)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D18" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(128, -192)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D19" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(0, -192)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(120, 192)
+scale = Vector2(8, 8)
+texture = ExtResource("1_trvcj")

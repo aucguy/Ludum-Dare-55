@@ -55,6 +55,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("print_camera"):
 		print("camera data: x = " + str($Camera2D.position.x) + ", y = " + str($Camera2D.position.y) + ", zoom = " + str($Camera2D.zoom.x))
 
+	if level != null:
+		level.place_spirits($Hud.turn_count)
+
 func disable():
 	hide()
 	$Camera2D.enabled = false
@@ -101,18 +104,6 @@ func spirit_attacked(spirit):
 		if not $DeathSound.playing:
 			$DeathSound.play()
 
-func _on_hud_spawn_archer():
-	spawn_spirit("archer", constants.ARCHER_COST)
-
-func _on_hud_spawn_mage():
-	spawn_spirit("mage", constants.MAGE_COST)
-
-func _on_hud_spawn_defender():
-	spawn_spirit("defender", constants.DEFENDER_COST)
-
-func _on_hud_spawn_elder():
-	spawn_spirit("elder", constants.ELDER_COST)
-
 func _on_hud_start_portal():
 	if $Hud.current_mana > constants.PORTAL_COST:
 		$Hud.increment_mana(-constants.PORTAL_COST)
@@ -121,3 +112,9 @@ func _on_hud_start_portal():
 
 func _on_music_finished():
 	$Music.play()
+
+func _on_hud_restart_level():
+	load_level(level_no)
+
+func _on_hud_spirit_selected(selected_spirit):
+	level.selected_spirit = selected_spirit

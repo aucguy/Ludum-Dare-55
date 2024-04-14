@@ -14,12 +14,12 @@ const TREE_DEAD_ATLAS_LOC = Vector2i(5, 0)
 
 var level_no
 var map = null
-var selected_tile = null
 var spirit_positions = {}
 var spirits_to_delete = []
 var elements_layer = 0
 var darkness_layer = 0
 var field_layer = 0
+var selected_spirit = null
 
 signal spirit_attacked
 
@@ -55,19 +55,34 @@ func init(level_no, turn_count):
 				if type == "tree-elder" or type == "tree-alive":
 					spawn_spirit("dark", "archer", location, turn_count, true)
 
-func _process(delta):
+func place_spirits(turn_count):
 	if Input.is_action_just_pressed("select"):
 		var tilemap = get_tilemap()
-		var position = tilemap.get_local_mouse_position()
-		position = tilemap.local_to_map(position)
+		var position = get_selected_tile()
 		var data = tilemap.get_cell_tile_data(elements_layer, position)
 		if data == null or not data.get_custom_data("selectable"):
 			return
-		selected_tile = position
+		if selected_spirit != null:
+			spawn_spirit("light", selected_spirit, position, turn_count)
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		$AreaMask.hide()
+		var tilemap = get_tilemap()
+		var position = get_selected_tile()
+		var data = tilemap.get_cell_tile_data(elements_layer, position)
+		if data == null or not data.get_custom_data("selectable"):
+			return
 		position = tilemap.map_to_local(position)
 		position = tilemap.to_global(position)
-		$Outline.position = to_local(position)
-		$Outline.visible = true
+		$AreaMask.position = to_local(position)
+		$AreaMask.show()
+
+func get_selected_tile():
+	var tilemap = get_tilemap()
+	var position = tilemap.get_local_mouse_position()
+	return tilemap.local_to_map(position)
+
 
 func before_turn():
 	spirits_to_delete = []

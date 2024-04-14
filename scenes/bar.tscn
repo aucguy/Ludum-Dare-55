@@ -4,3 +4,6 @@
 
 [node name="Bar" type="Node2D"]
 script = ExtResource("1_ud3jv")
+extra_line_position = null
+extra_line_color = null
+extra_line_width = null

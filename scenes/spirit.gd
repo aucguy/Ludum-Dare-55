@@ -78,7 +78,7 @@ func attack(level, location, turn_count):
 		return
 	
 	var tilemap = level.get_tilemap()
-	var targets = tiles_in_range(tilemap, location, 2)
+	var targets = tiles_in_range(tilemap, location, constants.ATTACK_RANGE)
 	targets = filter_valid_targets(level, targets)
 	if targets.size() != null:
 		last_attack = turn_count

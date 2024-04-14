@@ -30,6 +30,18 @@ extends Node2D
 	set(value):
 		max_amount = value
 		queue_redraw()
+@export var extra_line_position: int = -1:
+	set(value):
+		extra_line_position = value
+		queue_redraw()
+@export var extra_line_color: Color = Color(0, 0, 0):
+	set(value):
+		extra_line_color = value
+		queue_redraw()
+@export var extra_line_width: int = -1:
+	set(value):
+		extra_line_width = value
+		queue_redraw()
 
 func _ready():
 	queue_redraw()
@@ -40,6 +52,12 @@ func _draw():
 	var filled_width = width * amount / max_amount
 	var rect = Rect2(left, top, filled_width, height)
 	draw_rect(rect, fill_color, true)
+	
+	if extra_line_position != -1:
+		var from = Vector2i(left + width * extra_line_position / max_amount, top)
+		var to = Vector2i(from.x, from.y + height)
+		draw_line(from, to, extra_line_color, extra_line_width)
+	
 	rect = Rect2(left, top, width, height)
 	draw_rect(rect, outline_color, false, outline_width)
 
