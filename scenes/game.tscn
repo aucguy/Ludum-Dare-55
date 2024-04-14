@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtqppdlpaxmbs"]
+[gd_scene load_steps=7 format=3 uid="uid://dtqppdlpaxmbs"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_0n11f"]
 [ext_resource type="PackedScene" uid="uid://x2uytue1ig0d" path="res://scenes/hud.tscn" id="1_7gk1a"]
+[ext_resource type="AudioStream" uid="uid://cn7syveepx6s5" path="res://sounds/spawn.wav" id="3_557k0"]
+[ext_resource type="AudioStream" uid="uid://bjj1yren7p32l" path="res://sounds/attack.wav" id="4_1b3jc"]
+[ext_resource type="AudioStream" uid="uid://cou8nsrboj0r6" path="res://sounds/death.wav" id="5_o0nj0"]
+[ext_resource type="AudioStream" uid="uid://5otelpmcclvg" path="res://sounds/portal.wav" id="6_okehh"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_0n11f")
@@ -9,6 +13,20 @@ script = ExtResource("1_0n11f")
 [node name="Hud" parent="." instance=ExtResource("1_7gk1a")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_557k0")
+volume_db = 10.0
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1b3jc")
+volume_db = -10.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_o0nj0")
+
+[node name="PortalSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_okehh")
 
 [connection signal="next_turn" from="Hud" to="." method="_on_hud_next_turn"]
 [connection signal="spawn_archer" from="Hud" to="." method="_on_hud_spawn_archer"]

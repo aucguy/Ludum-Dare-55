@@ -19,6 +19,7 @@ const HEALTH_OUTLINE_COLOR = Color(0, 0, 0)
 const HEALTH_OUTLINE_WIDTH = 4
 
 signal die
+signal attacked
 
 func init(team, type, position, turn):
 	self.team = team
@@ -110,7 +111,8 @@ func attack_enemy(level, target_location):
 	add_child(projectile)
 	var tween = get_tree().create_tween()
 	tween.tween_property(projectile, "global_position", target_spirit.global_position, 1)
-	tween.tween_callback(projectile.queue_free)	
+	tween.tween_callback(projectile.queue_free)
+	target_spirit.attacked.emit()
 
 func tiles_in_range(tilemap, center, radius):
 	var tiles = [center]

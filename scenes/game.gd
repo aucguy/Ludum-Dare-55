@@ -13,6 +13,7 @@ func load_level(level_no):
 	$Hud.reset()
 	level = level_scene.instantiate()
 	level.init(level_no, $Hud.turn_count)
+	level.connect("spirit_attacked", func(spirit): spirit_attacked(spirit))
 	add_child(level)
 	process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -70,10 +71,19 @@ func _on_hud_next_turn():
 	$Hud.increment_mana(level.earned_mana())
 	$Hud.sync_display()
 	level.after_turn()
+	$SpawnSound.play()
 
 func spawn_spirit(type, cost):
 	if $Hud.current_mana >= cost and level.spawn_spirit("light", type, level.selected_tile, $Hud.turn_count):
 		$Hud.increment_mana(-cost)
+		$SpawnSound.play()
+
+func spirit_attacked(spirit):
+	if not $AttackSound.playing:
+		$AttackSound.play()
+	if spirit.health > 0:
+		if not $DeathSound.playing:
+			$DeathSound.play()
 
 func _on_hud_spawn_archer():
 	spawn_spirit("archer", constants.ARCHER_COST)
@@ -94,3 +104,4 @@ func _on_hud_start_portal():
 			level.queue_free()
 			level = null
 			load_level(level_no + 1)
+			$PortalSound.play()

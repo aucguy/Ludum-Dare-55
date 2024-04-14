@@ -37,19 +37,25 @@ func change_scene(name):
 func _on_main_menu_play():
 	change_scene("game")
 	$Game.load_level(1)
+	$ClickSound.play()
 
 func _on_main_menu_select_level():
 	change_scene("level_select")
+	$ClickSound.play()
 
 func _on_level_select_menu_back():
 	change_scene("main_menu")
+	$ClickSound.play()
 
 func _on_level_select_menu_select_level(level_no):
 	change_scene("game")
 	$Game.load_level(level_no)
+	$ClickSound.play()
 
 func _on_pause_menu_game():
 	hide_pause_menu()
+	$ClickSound.play()
 
 func _on_pause_menu_main_menu():
 	change_scene("main_menu")
+	$ClickSound.play()

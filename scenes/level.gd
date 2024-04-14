@@ -21,6 +21,8 @@ var elements_layer = 0
 var darkness_layer = 0
 var field_layer = 0
 
+signal spirit_attacked
+
 func init(level_no, turn_count):
 	self.level_no = level_no
 	var map_scene = load("res://maps/map-" + str(level_no) + ".tscn")
@@ -91,6 +93,7 @@ func spawn_spirit(team, type, location, turn, initial_spawn=false):
 	spirit.init(team, type, to_local(spirit_spawn_location(location)), turn)
 	spirit_positions[location] = spirit
 	spirit.connect("die", func(): despawn_spirit(location, spirit))
+	spirit.connect("attacked", func(): spirit_attacked.emit(spirit))
 	add_child(spirit)
 	
 	update_field_tiles()
