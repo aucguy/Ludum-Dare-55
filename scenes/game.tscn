@@ -9,4 +9,4 @@ script = ExtResource("1_0n11f")
 [node name="Hud" parent="." instance=ExtResource("1_7gk1a")]
 
 [connection signal="next_turn" from="Hud" to="." method="_on_hud_next_turn"]
-[connection signal="spawn_shooter" from="Hud" to="." method="_on_hud_spawn_shooter"]
+[connection signal="spawn_archer" from="Hud" to="." method="_on_hud_spawn_archer"]

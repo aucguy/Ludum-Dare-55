@@ -6,7 +6,7 @@ const constants = preload("res://constants.gd")
 @onready var turn_count = 0
 
 signal next_turn
-signal spawn_shooter
+signal spawn_archer
 
 func _ready():
 	sync_display()
@@ -23,8 +23,8 @@ func increment_mana(amount):
 		current_mana = constants.maximum_mana
 	sync_display()
 
-func _on_spawn_shooter_pressed():
-	spawn_shooter.emit()
+func _on_spawn_archer_pressed():
+	spawn_archer.emit()
 
 func _on_next_turn_pressed():
 	next_turn.emit()

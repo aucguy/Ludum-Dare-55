@@ -70,12 +70,23 @@ func spawn_spirit(team, type, location):
 	var spirit = spirit_scene.instantiate()
 	spirit.init(team, type, to_local(spirit_spawn_location(location)))
 	spirit_positions[location] = spirit
+	spirit.connect("die", func(): despawn_spirit(location, spirit))
 	add_child(spirit)
 	return true
+
+func despawn_spirit(location, spirit):
+	spirit_positions.erase(location)
+	spirit.queue_free()
 
 func spirit_spawn_location(tile):
 	var tilemap = get_tilemap()
 	return tilemap.to_global(tilemap.map_to_local(tile) + SPIRIT_SPAWN_OFFSET)
+
+func get_spirit_at(location):
+	if location in spirit_positions:
+		return spirit_positions[location]
+	else:
+		return null
 
 func can_spawn_at(team, tile):
 	if tile == null:
@@ -99,6 +110,11 @@ func can_spawn_at(team, tile):
 			return false
 		
 	return true
+
+func attack():
+	for location in spirit_positions:
+		var spirit = spirit_positions[location]
+		spirit.attack(self, location)
 	
 func spawn_enemies():
 	var tilemap = get_tilemap()
@@ -109,7 +125,7 @@ func spawn_enemies():
 			var location = Vector2i(x, y)
 			var data = tilemap.get_cell_tile_data(elements_layer, location)
 			if data != null and data.get_custom_data("type") == "tree-dead":
-				spawn_spirit("dark", "shooter", location)
+				spawn_spirit("dark", "archer", location)
 
 func spread_dark():
 	var tilemap = get_tilemap()
