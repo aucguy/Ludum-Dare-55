@@ -1,14 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://dktk1846gce2u"]
+[gd_scene load_steps=9 format=3 uid="uid://dktk1846gce2u"]
 
 [ext_resource type="PackedScene" uid="uid://dtqppdlpaxmbs" path="res://scenes/game.tscn" id="1_6qrll"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_bjuvb"]
 [ext_resource type="PackedScene" uid="uid://jeb1dibxqiqi" path="res://scenes/main_menu.tscn" id="2_2xgyc"]
+[ext_resource type="PackedScene" uid="uid://d4hknn561gmgy" path="res://maps/background.tscn" id="2_ug5rc"]
 [ext_resource type="PackedScene" uid="uid://cbni178srqh2k" path="res://scenes/level_select_menu.tscn" id="4_qlvjp"]
 [ext_resource type="PackedScene" uid="uid://cqy8eeioufhta" path="res://scenes/pause_menu.tscn" id="5_3w65d"]
+[ext_resource type="PackedScene" uid="uid://crcova0hsjowf" path="res://scenes/win_menu.tscn" id="6_wr8j7"]
 [ext_resource type="AudioStream" uid="uid://bekx6264bjqgx" path="res://sounds/click.wav" id="6_x8bq5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bjuvb")
+
+[node name="Background" parent="." instance=ExtResource("2_ug5rc")]
 
 [node name="Game" parent="." instance=ExtResource("1_6qrll")]
 
@@ -16,15 +20,19 @@ script = ExtResource("1_bjuvb")
 
 [node name="LevelSelectMenu" parent="." instance=ExtResource("4_qlvjp")]
 
+[node name="WinMenu" parent="." instance=ExtResource("6_wr8j7")]
+
 [node name="PauseMenu" parent="." instance=ExtResource("5_3w65d")]
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_x8bq5")
 pitch_scale = 0.76
 
+[connection signal="win" from="Game" to="." method="_on_game_win"]
 [connection signal="play" from="MainMenu" to="." method="_on_main_menu_play"]
 [connection signal="select_level" from="MainMenu" to="." method="_on_main_menu_select_level"]
 [connection signal="back" from="LevelSelectMenu" to="." method="_on_level_select_menu_back"]
 [connection signal="select_level" from="LevelSelectMenu" to="." method="_on_level_select_menu_select_level"]
+[connection signal="main_menu" from="WinMenu" to="." method="_on_win_menu_main_menu"]
 [connection signal="game" from="PauseMenu" to="." method="_on_pause_menu_game"]
 [connection signal="main_menu" from="PauseMenu" to="." method="_on_pause_menu_main_menu"]

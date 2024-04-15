@@ -7,37 +7,46 @@
 script = ExtResource("1_kiqqf")
 
 [node name="Level1Button" type="Button" parent="."]
-offset_left = 186.0
-offset_top = 119.0
-offset_right = 254.0
-offset_bottom = 187.0
+offset_left = 384.0
+offset_top = 128.0
+offset_right = 452.0
+offset_bottom = 196.0
 theme = ExtResource("1_1mffr")
 theme_override_font_sizes/font_size = 64
 text = "1"
 
 [node name="Level2Button" type="Button" parent="."]
-offset_left = 335.0
-offset_top = 122.0
-offset_right = 403.0
-offset_bottom = 190.0
+offset_left = 512.0
+offset_top = 128.0
+offset_right = 580.0
+offset_bottom = 196.0
 theme = ExtResource("1_1mffr")
 theme_override_font_sizes/font_size = 64
 text = "2"
 
 [node name="Level3Button" type="Button" parent="."]
-offset_left = 463.0
-offset_top = 117.0
-offset_right = 531.0
-offset_bottom = 185.0
+offset_left = 640.0
+offset_top = 128.0
+offset_right = 708.0
+offset_bottom = 196.0
 theme = ExtResource("1_1mffr")
 theme_override_font_sizes/font_size = 64
 text = "3"
 
+[node name="Level4Button" type="Button" parent="."]
+offset_left = 768.0
+offset_top = 128.0
+offset_right = 836.0
+offset_bottom = 196.0
+theme = ExtResource("1_1mffr")
+theme_override_font_sizes/font_size = 64
+text = "4"
+
 [node name="BackButton" type="Button" parent="."]
-offset_left = 189.0
-offset_top = 233.0
-offset_right = 449.0
-offset_bottom = 301.0
+offset_left = 480.0
+offset_top = 352.0
+offset_right = 740.0
+offset_bottom = 420.0
 theme = ExtResource("1_1mffr")
 theme_override_font_sizes/font_size = 64
 text = "BACK"
@@ -45,4 +54,5 @@ text = "BACK"
 [connection signal="pressed" from="Level1Button" to="." method="_on_level_1_button_pressed"]
 [connection signal="pressed" from="Level2Button" to="." method="_on_level_2_button_pressed"]
 [connection signal="pressed" from="Level3Button" to="." method="_on_level_3_button_pressed"]
+[connection signal="pressed" from="Level4Button" to="." method="_on_level_4_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

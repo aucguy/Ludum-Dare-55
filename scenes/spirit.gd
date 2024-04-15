@@ -43,9 +43,9 @@ func init(team, type, position, turn):
 		max_health = constants.MAGE_HEALTH
 		
 	if team == "dark":
-		$Sprite2D.modulate.r *= 0.75
-		$Sprite2D.modulate.g *= 0.75
-		$Sprite2D.modulate.b *= 0.75
+		$Sprite2D.modulate.r = 1
+		$Sprite2D.modulate.g = 1
+		$Sprite2D.modulate.b = 0.25
 	
 	health = max_health
 	$Bar.max_amount = max_health

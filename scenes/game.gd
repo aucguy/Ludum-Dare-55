@@ -7,6 +7,8 @@ var level = null
 var last_dark_spread = 0
 var level_no = 0
 
+signal win
+
 func load_level(level_no):
 	self.level_no = level_no
 	last_dark_spread = 0
@@ -55,8 +57,19 @@ func _process(delta):
 	if Input.is_action_just_pressed("print_camera"):
 		print("camera data: x = " + str($Camera2D.position.x) + ", y = " + str($Camera2D.position.y) + ", zoom = " + str($Camera2D.zoom.x))
 
-	if level != null:
-		level.place_spirits($Hud.turn_count)
+	if level != null and $Hud.selected_spirit != null:
+		var cost
+		if $Hud.selected_spirit == "archer":
+			cost = constants.ARCHER_COST
+		if $Hud.selected_spirit == "mage":
+			cost = constants.MAGE_COST
+		if $Hud.selected_spirit == "defender":
+			cost = constants.DEFENDER_COST
+		if $Hud.selected_spirit == "elder":
+			cost = constants.ELDER_COST
+		if $Hud.current_mana >= cost and level.place_spirits($Hud.turn_count):
+			$Hud.increment_mana(-cost)
+			$SpawnSound.play()
 
 func disable():
 	hide()
@@ -92,11 +105,6 @@ func _on_hud_next_turn():
 	level.after_turn()
 	$SpawnSound.play()
 
-func spawn_spirit(type, cost):
-	if $Hud.current_mana >= cost and level.spawn_spirit("light", type, level.selected_tile, $Hud.turn_count):
-		$Hud.increment_mana(-cost)
-		$SpawnSound.play()
-
 func spirit_attacked(spirit):
 	if not $AttackSound.playing:
 		$AttackSound.play()
@@ -105,9 +113,12 @@ func spirit_attacked(spirit):
 			$DeathSound.play()
 
 func _on_hud_start_portal():
-	if $Hud.current_mana > constants.PORTAL_COST:
+	if $Hud.current_mana >= constants.PORTAL_COST:
 		$Hud.increment_mana(-constants.PORTAL_COST)
-		load_level(level_no + 1)
+		if level_no >= constants.MAX_LEVEL:
+			win.emit()
+		else:
+			load_level(level_no + 1)
 		$PortalSound.play()
 
 func _on_music_finished():

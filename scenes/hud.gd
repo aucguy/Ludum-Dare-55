@@ -22,8 +22,8 @@ func _process(delta):
 		_on_spawn_archer_pressed()
 	if Input.is_action_just_pressed("spawn_mage"):
 		_on_spawn_mage_pressed()
-	if Input.is_action_just_pressed("spawn_defender"):
-		_on_spawn_defender_pressed()
+	#if Input.is_action_just_pressed("spawn_defender"):
+	#	_on_spawn_defender_pressed()
 	if Input.is_action_just_pressed("spawn_elder"):
 		_on_spawn_elder_pressed()
 

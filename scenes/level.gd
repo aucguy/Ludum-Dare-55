@@ -63,7 +63,7 @@ func place_spirits(turn_count):
 		if data == null or not data.get_custom_data("selectable"):
 			return
 		if selected_spirit != null:
-			spawn_spirit("light", selected_spirit, position, turn_count)
+			return spawn_spirit("light", selected_spirit, position, turn_count)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -170,7 +170,7 @@ func spawn_enemies(turn):
 		for y in range(used_rect.position.y, used_rect.end.y):
 			var location = Vector2i(x, y)
 			var data = tilemap.get_cell_tile_data(elements_layer, location)
-			if data != null and data.get_custom_data("type") == "tree-dead":
+			if data != null and data.get_custom_data("type") == "tree-dead" and randf() <= constants.DARKNESS_SPAWN_CHANCE:
 				spawn_spirit("dark", "archer", location, turn)
 
 func spread_dark():

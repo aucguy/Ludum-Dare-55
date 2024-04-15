@@ -17,12 +17,11 @@ offset_bottom = 648.0
 color = Color(0.47451, 0.47451, 0.47451, 1)
 
 [node name="ManaLabel" type="Label" parent="."]
-offset_left = 512.0
+offset_left = 480.0
 offset_top = 528.0
-offset_right = 800.0
+offset_right = 864.0
 offset_bottom = 562.0
 theme = ExtResource("3_5ltfy")
-theme_override_font_sizes/font_size = 24
 text = "MANA:100/100"
 vertical_alignment = 1
 
@@ -66,6 +65,7 @@ scale = Vector2(8, 8)
 texture_normal = ExtResource("2_ag74c")
 
 [node name="SpawnDefender" type="TextureButton" parent="."]
+visible = false
 modulate = Color(0.25098, 0.25098, 1, 1)
 offset_left = 152.0
 offset_top = 576.0
@@ -75,9 +75,9 @@ scale = Vector2(8, 8)
 texture_normal = ExtResource("2_ag74c")
 
 [node name="SpawnElder" type="TextureButton" parent="."]
-offset_left = 224.0
+offset_left = 168.0
 offset_top = 576.0
-offset_right = 232.0
+offset_right = 176.0
 offset_bottom = 584.0
 scale = Vector2(8, 8)
 texture_normal = ExtResource("2_ag74c")
@@ -101,13 +101,13 @@ text = "NEXT:"
 
 [node name="ManaBar" parent="." instance=ExtResource("6_xxq1g")]
 z_index = 7
-position = Vector2(944, 544)
+position = Vector2(1000, 544)
 width = 256
 height = 32
 fill_color = Color(1, 1, 1, 1)
 amount = 100
 max_amount = 300
-extra_line_position = 150
+extra_line_position = -1
 extra_line_color = Color(1, 0, 0, 1)
 extra_line_width = 4
 
@@ -120,9 +120,9 @@ theme = ExtResource("3_5ltfy")
 text = "LEVEL"
 
 [node name="RestartButton" type="Button" parent="."]
-offset_left = 816.0
+offset_left = 872.0
 offset_top = 584.0
-offset_right = 984.0
+offset_right = 1100.0
 offset_bottom = 624.0
 theme = ExtResource("3_5ltfy")
 text = "RESTART"

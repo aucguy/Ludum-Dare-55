@@ -26,12 +26,19 @@ func change_scene(name):
 	$MainMenu.hide()
 	$LevelSelectMenu.hide()
 	$PauseMenu.hide()
+	$WinMenu.hide()
+	$Background.hide()
 	if name == "main_menu":
 		$MainMenu.show()
+		$Background.show()
 	elif name == "game":
 		$Game.enable()
 	elif name == "level_select":
 		$LevelSelectMenu.show()
+		$Background.show()
+	elif name == "win":
+		$WinMenu.show()
+		$Background.show()
 
 func _on_main_menu_play():
 	change_scene("game")
@@ -56,5 +63,12 @@ func _on_pause_menu_game():
 	$ClickSound.play()
 
 func _on_pause_menu_main_menu():
+	change_scene("main_menu")
+	$ClickSound.play()
+
+func _on_game_win():
+	change_scene("win")
+
+func _on_win_menu_main_menu():
 	change_scene("main_menu")
 	$ClickSound.play()
